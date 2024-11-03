@@ -38,7 +38,8 @@ in usertabelle
 
 ## CSS 
 **joblist.css**
-```.joblist{
+```
+.joblist{
 	display: flex;
 }
 
@@ -146,4 +147,5 @@ in usertabelle
 
 .joblist_otherinfos{
 	padding: 10px 20px;	
-}```
+}
+```
