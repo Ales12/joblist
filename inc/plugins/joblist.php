@@ -36,7 +36,7 @@ function joblist_info()
 	return array(
 		"name" => "Joblist",
 		"description" => "Übersicht aller Arbeitsstellen, bei denen die Charaktere einen Job ergreifen können.",
-		"website" => "",
+		"website" => "https://github.com/Ales12/joblist",
 		"author" => "Ales",
 		"authorsite" => "https://github.com/Ales12",
 		"version" => "1.0",
