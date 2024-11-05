@@ -36,7 +36,7 @@ function joblist_info()
 	return array(
 		"name" => "Joblist",
 		"description" => "Übersicht aller Arbeitsstellen, bei denen die Charaktere einen Job ergreifen können.",
-		"website" => "https://github.com/Ales12/joblist",
+		"website" => "",
 		"author" => "Ales",
 		"authorsite" => "https://github.com/Ales12",
 		"version" => "1.0",
@@ -734,8 +734,8 @@ function joblist_deactivate()
 
 	require MYBB_ROOT . "/inc/adminfunctions_templates.php";
 	find_replace_templatesets("header", "#" . preg_quote('{$joblist_global}') . "#i", '', 0);
-    find_replace_templatesets("member_profile", "#" . preg_quote('{$global_newentry_alert}') . "#i", '', 0);
-    find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$memprofile[\'job\']}') . "#i", '', 0);
+    find_replace_templatesets("member_profile", "#" . preg_quote(' <br />   {$memprofile[\'job\']}') . "#i", '', 0);
+    find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$nav_joblist}') . "#i", '', 0);
 
 }
 
@@ -987,12 +987,6 @@ function joblist_manage_joblist()
 				$lang->joblist_add_jobdesc . "<em>*</em>",
 				$lang->joblist_add_jobdesc_desc,
 				$form->generate_text_area('jobdesc', isset($mybb->input['jobdesc']))
-			);
-
-			$form_container->output_row(
-				$lang->joblist_add_owner,
-				$lang->joblist_add_owner_desc,
-				$form->generate_numeric_field('uid', isset($mybb->input['uid']))
 			);
 
 			$form_container->end();
