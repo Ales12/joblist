@@ -144,6 +144,7 @@ Neue Arbeitsstellen müssen erst vom Team abgesegnet werden.', // Default
 <div class="joblist_infotext">
 {$infotext}	
 	</div>
+		{$add_job_alert}
 		{$add_job}
 {$join_job}
 </div>
@@ -172,6 +173,16 @@ function openBranche(evt, Branche) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 </script>'),
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
+
+	$insert_array = array(
+		'title' => 'joblist_add_job_alert',
+		'template' => $db->escape_string('<div class="red_alert"><strong>{$lang->joblist_add_wait_ok}</strong></div>'),
 		'sid' => '-1',
 		'version' => '',
 		'dateline' => TIME_NOW
