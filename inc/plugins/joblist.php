@@ -49,8 +49,8 @@ function joblist_info()
 function joblist_install()
 {
 	global $db, $mybb, $templates, $cache;
-	if ($db->engine == 'mysql' || $db->engine == 'mysqli') {
-		$db->query("CREATE TABLE `" . TABLE_PREFIX . "joblist` (
+
+	$db->query("CREATE TABLE `" . TABLE_PREFIX . "joblist` (
           `jid` int(10) NOT NULL auto_increment,
 		  `industry`  varchar(500) CHARACTER SET utf8 NOT NULL,
           `job` varchar(500) CHARACTER SET utf8 NOT NULL,
@@ -62,17 +62,17 @@ function joblist_install()
           PRIMARY KEY (`jid`)
         ) ENGINE=MyISAM" . $db->build_create_table_collation());
 
-		$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `jtitle` varchar(400) CHARACTER SET utf8 NOT NULL;");
-		$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `jid` int(10) NOT NULL;");
-		// Nebenjob
-		$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `sjtitle` varchar(400) CHARACTER SET utf8 NOT NULL;");
-		$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `sjid` int(10) NOT NULL;");
+	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `jtitle` varchar(400) CHARACTER SET utf8 NOT NULL;");
+	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `jid` int(10) NOT NULL;");
+	// Nebenjob
+	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `sjtitle` varchar(400) CHARACTER SET utf8 NOT NULL;");
+	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `sjid` int(10) NOT NULL;");
 
-		// Spalte bei Usertabelle hinzufügen
-		$db->add_column("usergroups", "canaddjob", "tinyint NOT NULL default '1'");
-		$db->add_column("usergroups", "canjoinjob", "tinyint NOT NULL default '1'");
-		$cache->update_usergroups();
-	}
+	// Spalte bei Usertabelle hinzufügen
+	$db->add_column("usergroups", "canaddjob", "tinyint NOT NULL default '1'");
+	$db->add_column("usergroups", "canjoinjob", "tinyint NOT NULL default '1'");
+	$cache->update_usergroups();
+
 
 	// Einstellungen
 	$setting_group = array(
@@ -121,8 +121,8 @@ Neue Arbeitsstellen müssen erst vom Team abgesegnet werden.', // Default
 
 	// Templates
 	$insert_array = array(
-        'title' => 'joblist',
-        'template' => $db->escape_string('<html>
+		'title' => 'joblist',
+		'template' => $db->escape_string('<html>
 <head>
 <title>{$lang->joblist}</title>
 {$headerinclude}
@@ -172,15 +172,15 @@ function openBranche(evt, Branche) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 </script>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
 
-    $insert_array = array(
-        'title' => 'joblist_add_job',
-        'template' => $db->escape_string('<form action="misc.php?action=joblist" method="post" id="add_job">
+	$insert_array = array(
+		'title' => 'joblist_add_job',
+		'template' => $db->escape_string('<form action="misc.php?action=joblist" method="post" id="add_job">
 	<table width="80%" style="margin: 10px auto; text-align: center;"  cellpadding="5">
 		<tr><td class="tcat" colspan="3"><strong>{$lang->joblist_add_job}</strong></td></tr>
 		<tr>
@@ -229,15 +229,15 @@ document.getElementById("defaultOpen").click();
 			</tr>
 	</table>
 </form>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-  
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_bit',
-        'template' => $db->escape_string('<div class="joblist_job">
+		'title' => 'joblist_bit',
+		'template' => $db->escape_string('<div class="joblist_job">
 	<div class="joblist_job_top">
 		<strong>{$jobtitle}</strong> {$joblist_otherinfos}
 		<div class="smalltext">{$place}</div>
@@ -251,24 +251,24 @@ document.getElementById("defaultOpen").click();
 		{$joblist_staff}
 	</div>
 </div>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_global',
-        'template' => $db->escape_string('<div class="red_alert"><a href="modcp.php?action=joblist"><strong>{$globalalert}</strong></a></div>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'title' => 'joblist_global',
+		'template' => $db->escape_string('<div class="red_alert"><a href="modcp.php?action=joblist"><strong>{$globalalert}</strong></a></div>'),
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_join_job',
-        'template' => $db->escape_string('<form action="misc.php?action=joblist" method="post" id="join_job">
+		'title' => 'joblist_join_job',
+		'template' => $db->escape_string('<form action="misc.php?action=joblist" method="post" id="join_job">
 	<table width="80%" style="margin: 20px auto; text-align: center;"  cellpadding="5">
 		<tr><td class="tcat" colspan="4"><strong>{$lang->joblist_join_job}</strong></td></tr>
 		<tr>
@@ -303,15 +303,15 @@ document.getElementById("defaultOpen").click();
 			</tr>
 	</table>
 </form>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_modcp',
-        'template' => $db->escape_string('<html>
+		'title' => 'joblist_modcp',
+		'template' => $db->escape_string('<html>
 <head>
 <title>{$mybb->settings[\'bbname\']} - {$lang->joblist_modcp}</title>
 {$headerinclude}
@@ -338,15 +338,15 @@ document.getElementById("defaultOpen").click();
 {$footer}
 </body>
 </html>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_modcp_bit',
-        'template' => $db->escape_string('<table width="90%" style="margin: 20px  auto;" cellpadding="5">
+		'title' => 'joblist_modcp_bit',
+		'template' => $db->escape_string('<table width="90%" style="margin: 20px  auto;" cellpadding="5">
 	<tr><td class="thead" colspan="2" align="center">
 		<strong>{$job}</strong>
 		<div class="smalltext">{$owner}</div>
@@ -375,33 +375,33 @@ document.getElementById("defaultOpen").click();
 			</form>
 		</td>
 </table>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_modcp_nav',
-        'template' => $db->escape_string('<tr><td class="trow1 smalltext"><a href="modcp.php?action=joblist" class="modcp_nav_item modcp_nav_modlogs">{$lang->joblist_modcp_nav}</a></td></tr>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'title' => 'joblist_modcp_nav',
+		'template' => $db->escape_string('<tr><td class="trow1 smalltext"><a href="modcp.php?action=joblist" class="modcp_nav_item modcp_nav_modlogs">{$lang->joblist_modcp_nav}</a></td></tr>'),
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_nav',
-        'template' => $db->escape_string('{$branche}'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'title' => 'joblist_nav',
+		'template' => $db->escape_string('{$branche}'),
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_options',
-        'template' => $db->escape_string('<div class="smalltext"><a onclick="$(\'#edit_{$jid}\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->joblist_edit}</a>	// <a href="misc.php?action=joblist&deletejob={$jid}">{$lang->joblist_delete}</a>
+		'title' => 'joblist_options',
+		'template' => $db->escape_string('<div class="smalltext"><a onclick="$(\'#edit_{$jid}\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->joblist_edit}</a>	// <a href="misc.php?action=joblist&deletejob={$jid}">{$lang->joblist_delete}</a>
 </div>
 	<div class="modal" id="edit_{$jid}" style="display: none;">
 
@@ -461,51 +461,51 @@ document.getElementById("defaultOpen").click();
 	</table>
 </form>
 </div>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_otherinfos',
-        'template' => $db->escape_string('<div class="float_right"><a onclick="$(\'#jid_{$jid}\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->joblist_otherinfos}</a>	<div class="modal" id="jid_{$jid}" style="display: none;">
+		'title' => 'joblist_otherinfos',
+		'template' => $db->escape_string('<div class="float_right"><a onclick="$(\'#jid_{$jid}\').modal({ fadeDuration: 250, keepelement: true, zIndex: (typeof modal_zindex !== \'undefined\' ? modal_zindex : 9999) }); return false;" style="cursor: pointer;">{$lang->joblist_otherinfos}</a>	<div class="modal" id="jid_{$jid}" style="display: none;">
 <div class="joblist_otherinfos">	{$otherinfos}
 	</div></div></div>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_staff',
-        'template' => $db->escape_string('<div class="joblist_staff">{$staff} - {$charajob}</div>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
-	  
+		'title' => 'joblist_staff',
+		'template' => $db->escape_string('<div class="joblist_staff">{$staff} - {$charajob}</div>'),
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
+
 	$insert_array = array(
-        'title' => 'joblist_tabcontent',
-        'template' => $db->escape_string('<div id="{$industry}" class="tabcontent">
+		'title' => 'joblist_tabcontent',
+		'template' => $db->escape_string('<div id="{$industry}" class="tabcontent">
   <div class="joblist_job_flex">
 	  {$joblist_bit}
 	</div>
 </div>'),
-        'sid' => '-1',
-        'version' => '',
-        'dateline' => TIME_NOW
-    );
-    $db->insert_query("templates", $insert_array);
+		'sid' => '-1',
+		'version' => '',
+		'dateline' => TIME_NOW
+	);
+	$db->insert_query("templates", $insert_array);
 
-    //CSS einfügen
-    $css = array(
-        'name' => 'joblist.css',
-        'tid' => 1,
-        'attachedto' => '',
-        "stylesheet" => '.joblist{
+	//CSS einfügen
+	$css = array(
+		'name' => 'joblist.css',
+		'tid' => 1,
+		'attachedto' => '',
+		"stylesheet" => '.joblist{
 	display: flex;
 }
 
@@ -615,19 +615,19 @@ document.getElementById("defaultOpen").click();
 	padding: 10px 20px;	
 }
         ',
-        'cachefile' => $db->escape_string(str_replace('/', '', 'joblist.css')),
-        'lastmodified' => time()
-    );
+		'cachefile' => $db->escape_string(str_replace('/', '', 'joblist.css')),
+		'lastmodified' => time()
+	);
 
-    require_once MYBB_ADMIN_DIR . "inc/functions_themes.php";
+	require_once MYBB_ADMIN_DIR . "inc/functions_themes.php";
 
-    $sid = $db->insert_query("themestylesheets", $css);
-    $db->update_query("themestylesheets", array("cachefile" => "css.php?stylesheet=" . $sid), "sid = '" . $sid . "'", 1);
+	$sid = $db->insert_query("themestylesheets", $css);
+	$db->update_query("themestylesheets", array("cachefile" => "css.php?stylesheet=" . $sid), "sid = '" . $sid . "'", 1);
 
-    $tids = $db->simple_select("themes", "tid");
-    while ($theme = $db->fetch_array($tids)) {
-        update_theme_stylesheet_list($theme['tid']);
-    }
+	$tids = $db->simple_select("themes", "tid");
+	while ($theme = $db->fetch_array($tids)) {
+		update_theme_stylesheet_list($theme['tid']);
+	}
 
 	// Don't forget this!
 	rebuild_settings();
@@ -677,16 +677,16 @@ function joblist_uninstall()
 	$db->delete_query('settinggroups', "name = 'joblist'");
 
 	$db->delete_query("templates", "title LIKE '%joblist%'");
-    // Don't forget this
-    rebuild_settings();
+	// Don't forget this
+	rebuild_settings();
 
-    require_once MYBB_ADMIN_DIR . "inc/functions_themes.php";
-    $db->delete_query("themestylesheets", "name = 'joblist.css'");
-    $query = $db->simple_select("themes", "tid");
-    while ($theme = $db->fetch_array($query)) {
-        update_theme_stylesheet_list($theme['tid']);
-        rebuild_settings();
-    }
+	require_once MYBB_ADMIN_DIR . "inc/functions_themes.php";
+	$db->delete_query("themestylesheets", "name = 'joblist.css'");
+	$query = $db->simple_select("themes", "tid");
+	while ($theme = $db->fetch_array($query)) {
+		update_theme_stylesheet_list($theme['tid']);
+		rebuild_settings();
+	}
 
 	// Don't forget this
 	rebuild_settings();
@@ -734,8 +734,8 @@ function joblist_deactivate()
 
 	require MYBB_ROOT . "/inc/adminfunctions_templates.php";
 	find_replace_templatesets("header", "#" . preg_quote('{$joblist_global}') . "#i", '', 0);
-    find_replace_templatesets("member_profile", "#" . preg_quote(' <br />   {$memprofile[\'job\']}') . "#i", '', 0);
-    find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$nav_joblist}') . "#i", '', 0);
+	find_replace_templatesets("member_profile", "#" . preg_quote('{$global_newentry_alert}') . "#i", '', 0);
+	find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$memprofile[\'job\']}') . "#i", '', 0);
 
 }
 
@@ -989,6 +989,12 @@ function joblist_manage_joblist()
 				$form->generate_text_area('jobdesc', isset($mybb->input['jobdesc']))
 			);
 
+			$form_container->output_row(
+				$lang->joblist_add_owner,
+				$lang->joblist_add_owner_desc,
+				$form->generate_numeric_field('uid', isset($mybb->input['uid']))
+			);
+
 			$form_container->end();
 			$buttons[] = $form->generate_submit_button($lang->joblist_add_send);
 			$form->output_submit_wrapper($buttons);
@@ -1197,10 +1203,20 @@ function joblist_misc()
 
 		// Add a breadcrumb
 		add_breadcrumb($lang->joblist, "misc.php?action=joblist");
+
+
 		$industries = str_replace(", ", ",", $mybb->settings['joblist_industries']);
 		$industries = explode(",", $industries);
 		asort($industries);
 		$infotext = $parser->parse_message($mybb->settings['joblist_desc'], $options);
+
+		// Alert, wenn Job noch angenommen werden muss
+
+		$get_alert = $db->fetch_field($db->simple_select("joblist", "COUNT(*) AS count", "uid = '{$mybb->user['uid']}' AND  ok = '0'"), "count");
+		$add_job_alert = "";
+		if ($get_alert > 0) {
+			eval ("\$add_job_alert = \"" . $templates->get("joblist_add_job_alert") . "\";");
+		}
 
 		if ($mybb->usergroup['canaddjob'] == 1) {
 			foreach ($industries as $industry) {
@@ -1347,6 +1363,7 @@ function joblist_misc()
 				"jobplace" => $db->escape_string($mybb->input['jobplace']),
 				"jobdesc" => $db->escape_string($mybb->input['jobdesc']),
 				"otherinfos" => $db->escape_string($mybb->input['otherinfos']),
+				"uid" => (int) $mybb->user['uid']
 			);
 
 			$db->insert_query("joblist", $new_job);
@@ -1537,32 +1554,36 @@ function joblist_modcp()
 			
 			Wenn dich bitte an Team, wenn du noch Fragen hast!";
 
+			$can_pm = $db->fetch_field($db->simple_select("users", "receivepms", "uid = '{$owner}'"), "receivepms");
 
 
-			$pm = array(
-				"subject" => "{$lang->joblist_deny}",
-				"message" => $message,
-				//to: wer muss die anfrage bestätigen
-				"fromid" => $fromuid,
-				//from: wer hat die anfrage gestellt
-				"toid" => $owner
-			);
+			if ($can_pm == 1) {
 
-			$pm['options'] = array(
-				'signature' => '0',
-				'savecopy' => '0',
-				'disablesmilies' => '0',
-				'readreceipt' => '0',
-			);
-			if (isset($session)) {
-				$pm['ipaddress'] = $session->packedip;
-			}
-			// $pmhandler->admin_override = true;
-			$pmhandler->set_data($pm);
-			if (!$pmhandler->validate_pm())
-				return false;
-			else {
-				$pmhandler->insert_pm();
+				$pm = array(
+					"subject" => "{$lang->joblist_deny}",
+					"message" => $message,
+					//to: wer muss die anfrage bestätigen
+					"fromid" => $fromuid,
+					//from: wer hat die anfrage gestellt
+					"toid" => $owner
+				);
+
+				$pm['options'] = array(
+					'signature' => '0',
+					'savecopy' => '0',
+					'disablesmilies' => '0',
+					'readreceipt' => '0',
+				);
+				if (isset($session)) {
+					$pm['ipaddress'] = $session->packedip;
+				}
+				// $pmhandler->admin_override = true;
+				$pmhandler->set_data($pm);
+				if (!$pmhandler->validate_pm())
+					return false;
+				else {
+					$pmhandler->insert_pm();
+				}
 			}
 
 			$db->delete_query("joblist", "jid = '{$get_jid}'");
