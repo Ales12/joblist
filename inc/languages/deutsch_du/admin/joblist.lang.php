@@ -38,7 +38,7 @@ $l['joblist_add_owner_desc'] = "Wer hat diese Arbeitsstelle erstellt?";
 
 $l['joblist_edit_job'] = "Job bearbeiten";
 $l['joblist_edit_job_desc'] = "Hier kannst du die Arbeitsstelle bearbeiten.";
-$l['joblist_edit_send'] = "Job bearbeien";
+$l['joblist_edit_send'] = "Job bearbeiten";
 $l['joblist_editjob'] = "Job bearbeiten";
 $l['joblist_edit_solved'] = "Job wurde bearbeitet";
 // errors
