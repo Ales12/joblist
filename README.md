@@ -1,6 +1,9 @@
 # Jobliste
 Hier können User neue Arbeitstätte anlegen und dann einen Job eintragen, sowie Nebenjobs. Auch kann hinterlegt werden, wann Öffnungszeiten sind oder ob noch jemand gesucht wird. Arbeitsplätze können sowohl im ACP als auch im Forum neu angelegt werden. **ACHTUNG!!** Gästen muss die Erlaubnis, Berufe anzulegen, erst über die Gruppeneinstellungen entzogen werden!!! Standardmäßig ist es abgehakt.
 
+## wichtige Einstellungen
+Vergesse nicht im ACP unter **Administrator-Berechtigungen** Admins die Berechtigung zu geben, dass sie die Joblist verwalten können
+
 ## Pfad
 misc.php?action=joblist
 
