@@ -1000,12 +1000,6 @@ function joblist_manage_joblist()
 				$form->generate_text_area('jobdesc', isset($mybb->input['jobdesc']))
 			);
 
-			$form_container->output_row(
-				$lang->joblist_add_owner,
-				$lang->joblist_add_owner_desc,
-				$form->generate_numeric_field('uid', isset($mybb->input['uid']))
-			);
-
 			$form_container->end();
 			$buttons[] = $form->generate_submit_button($lang->joblist_add_send);
 			$form->output_submit_wrapper($buttons);
