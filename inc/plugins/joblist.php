@@ -753,7 +753,7 @@ function joblist_deactivate()
 function joblist_usergroup_permission()
 {
 	global $mybb, $lang, $form, $form_container, $run_module;
-
+	$lang->misc = (isset($lang->misc) ? $lang->misc : false);
 	if ($run_module == 'user' && !empty($form_container->_title) & !empty($lang->misc) & $form_container->_title == $lang->misc) {
 		$joblist_options = array(
 			$form->generate_check_box('canaddjob', 1, "Kann eine neue Arbeitsstelle hinzufügen?", array("checked" => $mybb->input['canaddjob'])),
@@ -998,6 +998,12 @@ function joblist_manage_joblist()
 				$lang->joblist_add_jobdesc . "<em>*</em>",
 				$lang->joblist_add_jobdesc_desc,
 				$form->generate_text_area('jobdesc', isset($mybb->input['jobdesc']))
+			);
+
+			$form_container->output_row(
+				$lang->joblist_add_owner,
+				$lang->joblist_add_owner_desc,
+				$form->generate_numeric_field('uid', isset($mybb->input['uid']))
 			);
 
 			$form_container->end();
