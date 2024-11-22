@@ -1301,6 +1301,7 @@ function joblist_misc()
 				$otherinfos = "";
 				$jid = 0;
 				$joblist_staff = "";
+				$joblist_otherinfos = "";
 
 				$jid = $row['jid'];
 				$jobtitle = $row['job'];
