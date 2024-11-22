@@ -1564,7 +1564,7 @@ function joblist_modcp()
 			<strong>Branche:<strong> {$get_job['industry']}
 			<strong>Jobbeschreibung:</strong> {$get_job['jobdesc']}
 			
-			Wenn dich bitte an Team, wenn du noch Fragen hast!";
+			Wende dich bitte an Team, wenn du noch Fragen hast!";
 
 			$can_pm = $db->fetch_field($db->simple_select("users", "receivepms", "uid = '{$owner}'"), "receivepms");
 
