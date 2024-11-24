@@ -757,7 +757,7 @@ function joblist_usergroup_permission()
 	if ($run_module == 'user' && !empty($form_container->_title) & !empty($lang->misc) & $form_container->_title == $lang->misc) {
 		$joblist_options = array(
 			$form->generate_check_box('canaddjob', 1, "Kann eine neue Arbeitsstelle hinzufügen?", array("checked" => $mybb->input['canaddjob'])),
-			$form->generate_check_box('canjoinjob', 1, "Kann einen Job eintagen?", array("checked" => $mybb->input['canjoinjob'])),
+			$form->generate_check_box('canjoinjob', 1, "Kann einen Job eintragen?", array("checked" => $mybb->input['canjoinjob'])),
 		);
 		$form_container->output_row("Einstellung für die Joblist", "", "<div class=\"group_settings_bit\">" . implode("</div><div class=\"group_settings_bit\">", $joblist_options) . "</div>");
 	}
