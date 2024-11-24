@@ -745,15 +745,15 @@ function joblist_deactivate()
 
 	require MYBB_ROOT . "/inc/adminfunctions_templates.php";
 	find_replace_templatesets("header", "#" . preg_quote('{$joblist_global}') . "#i", '', 0);
-	find_replace_templatesets("member_profile", "#" . preg_quote('{$global_newentry_alert}') . "#i", '', 0);
-	find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$memprofile[\'job\']}') . "#i", '', 0);
+	find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$nav_joblist}') . "#i", '', 0);
+	find_replace_templatesets("member_profile", "#" . preg_quote('{$memprofile[\'job\']}') . "#i", '', 0);
 
 }
 
 function joblist_usergroup_permission()
 {
 	global $mybb, $lang, $form, $form_container, $run_module;
-	$lang->misc = (isset($lang->misc) ? $lang->misc : false);
+
 	if ($run_module == 'user' && !empty($form_container->_title) & !empty($lang->misc) & $form_container->_title == $lang->misc) {
 		$joblist_options = array(
 			$form->generate_check_box('canaddjob', 1, "Kann eine neue Arbeitsstelle hinzufügen?", array("checked" => $mybb->input['canaddjob'])),
@@ -1301,7 +1301,6 @@ function joblist_misc()
 				$otherinfos = "";
 				$jid = 0;
 				$joblist_staff = "";
-				$joblist_otherinfos = "";
 
 				$jid = $row['jid'];
 				$jobtitle = $row['job'];
@@ -1564,7 +1563,7 @@ function joblist_modcp()
 			<strong>Branche:<strong> {$get_job['industry']}
 			<strong>Jobbeschreibung:</strong> {$get_job['jobdesc']}
 			
-			Wende dich bitte an Team, wenn du noch Fragen hast!";
+			Wenn dich bitte an Team, wenn du noch Fragen hast!";
 
 			$can_pm = $db->fetch_field($db->simple_select("users", "receivepms", "uid = '{$owner}'"), "receivepms");
 
@@ -1645,8 +1644,8 @@ function joblist_profile()
 {
 	global $mybb, $db, $templates, $lang, $memprofile;
 	$lang->load('joblist');
-
-	if (isset($memprofile['jid'])) {
+	$memprofile['job'] = "";
+	if (!empty($memprofile['jid'])) {
 		$jid = 0;
 		$job = "";
 		$jid = $memprofile['jid'];
