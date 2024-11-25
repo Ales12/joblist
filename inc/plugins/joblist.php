@@ -757,7 +757,7 @@ function joblist_usergroup_permission()
 	if ($run_module == 'user' && !empty($form_container->_title) & !empty($lang->misc) & $form_container->_title == $lang->misc) {
 		$joblist_options = array(
 			$form->generate_check_box('canaddjob', 1, "Kann eine neue Arbeitsstelle hinzufügen?", array("checked" => $mybb->input['canaddjob'])),
-			$form->generate_check_box('canjoinjob', 1, "Kann einen Job eintragen?", array("checked" => $mybb->input['canjoinjob'])),
+			$form->generate_check_box('canjoinjob', 1, "Kann einen Job eintagen?", array("checked" => $mybb->input['canjoinjob'])),
 		);
 		$form_container->output_row("Einstellung für die Joblist", "", "<div class=\"group_settings_bit\">" . implode("</div><div class=\"group_settings_bit\">", $joblist_options) . "</div>");
 	}
@@ -998,12 +998,6 @@ function joblist_manage_joblist()
 				$lang->joblist_add_jobdesc . "<em>*</em>",
 				$lang->joblist_add_jobdesc_desc,
 				$form->generate_text_area('jobdesc', isset($mybb->input['jobdesc']))
-			);
-
-			$form_container->output_row(
-				$lang->joblist_add_owner,
-				$lang->joblist_add_owner_desc,
-				$form->generate_numeric_field('uid', isset($mybb->input['uid']))
 			);
 
 			$form_container->end();
@@ -1292,7 +1286,7 @@ function joblist_misc()
 			ORDER BY job ASC
 			");
 			$joblist_bit = "";
-			$joblist_otherinfos = "";
+
 			$joblist_options = "";
 			while ($row = $db->fetch_array($get_jobs)) {
 				$job = "";
@@ -1301,7 +1295,7 @@ function joblist_misc()
 				$otherinfos = "";
 				$jid = 0;
 				$joblist_staff = "";
-
+				$joblist_otherinfos = "";
 				$jid = $row['jid'];
 				$jobtitle = $row['job'];
 				$place = $row['jobplace'];
