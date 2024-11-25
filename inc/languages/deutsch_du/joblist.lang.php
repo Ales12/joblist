@@ -8,7 +8,8 @@ $l['joblist_otherinfos'] = "Infos";
 $l['joblist_edit'] = "Bearbeiten";
 $l['joblist_delete'] = "Löschen";
 $l['joblist_edit_job'] ="Arbeitsstelle bearbeiten";
-
+$l['joblist_leavework_arrow'] = "→";
+$l['joblist_leavework'] = "Arbeitsstelle verlassen";
 // Arbeitstelle hinzufügen
 $l['joblist_add_job'] = "Arbeitsstelle hinzufügen";
 $l['joblist_add_name'] = "Name der Arbeitsstelle";
@@ -22,6 +23,7 @@ $l['joblist_add_otherinfos_desc'] = "Hier kannst du angeben, wann die Öffnungsz
 $l['joblist_add_jobdesc'] = "Beschreibung der Arbeitsstelle";
 $l['joblist_add_jobdesc_desc'] = "Hier kannst du die Arbeitsstelle beschreiben.";
 $l['joblist_add_send'] = "Job hinzufügen";
+$l['joblist_add_wait_ok'] = "Dein eingetragener Job muss noch vom Team angenommen werden";
 
 // Job eintragen
 $l['joblist_join_job'] = "Job eintragen";

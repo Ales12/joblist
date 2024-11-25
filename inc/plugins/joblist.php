@@ -1296,6 +1296,8 @@ function joblist_misc()
 				$jid = 0;
 				$joblist_staff = "";
 				$joblist_otherinfos = "";
+
+
 				$jid = $row['jid'];
 				$jobtitle = $row['job'];
 				$place = $row['jobplace'];
@@ -1331,6 +1333,11 @@ function joblist_misc()
 					$staff = "";
 					$username = "";
 					$charajob = "";
+					$leavework = "";
+
+					if ($mybb->user['uid'] == $user['uid'] or $mybb->usergroup['canmodcp'] == 1) {
+						$leavework = "<a href='misc.php?action=joblist&leaveuid={$user['uid']}&jid={$jid}' title='{$lang->joblist_leavework}'>{$lang->joblist_leavework_arrow}</a>";
+					}
 
 					if ($mybb->settings['joblist_userstyle'] == 1) {
 						$username = format_name($user['username'], $user['usergroup'], $user['displaygroup']);
@@ -1434,6 +1441,28 @@ function joblist_misc()
 
 			// Arbeitsstelle löschen
 			$db->delete_query("joblist", "jid='{$jid}'");
+			redirect("misc.php?action=joblist");
+		}
+
+		// aus Arbeitsstelle entfernen
+		if (isset($mybb->input['leaveuid'])) {
+			$uid = $mybb->input['leaveuid'];
+			$jid = $mybb->input['jid'];
+			$get_user = $db->fetch_array($db->simple_select("users", "*", "uid = {$uid}"));
+
+			if ($get_user['jid'] == $jid) {
+				$leavework = array(
+					"jtitle" => "",
+					"jid" => 0
+				);
+			} elseif ($get_user['sjid'] == $jid) {
+				$leavework = array(
+					"sjtitle" => "",
+					"sjid" => 0
+				);
+			}
+
+			$db->update_query("users", $leavework, "uid = {$uid}");
 			redirect("misc.php?action=joblist");
 		}
 
