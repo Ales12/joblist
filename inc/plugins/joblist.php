@@ -491,7 +491,7 @@ document.getElementById("defaultOpen").click();
 
 	$insert_array = array(
 		'title' => 'joblist_staff',
-		'template' => $db->escape_string('<div class="joblist_staff">{$staff} - {$charajob}</div>'),
+		'template' => $db->escape_string('<div class="joblist_staff">{$staff} - {$charajob}  {$leavework}</div>'),
 		'sid' => '-1',
 		'version' => '',
 		'dateline' => TIME_NOW
