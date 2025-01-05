@@ -30,6 +30,9 @@ if (class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
 
 // Profile
 $plugins->add_hook("member_profile_start", "joblist_profile");
+//wer ist wo
+$plugins->add_hook('fetch_wol_activity_end', 'joblist_user_activity');
+$plugins->add_hook('build_friendly_wol_location_end', 'joblist_location_activity');
 
 function joblist_info()
 {
@@ -491,7 +494,7 @@ document.getElementById("defaultOpen").click();
 
 	$insert_array = array(
 		'title' => 'joblist_staff',
-		'template' => $db->escape_string('<div class="joblist_staff">{$staff} - {$charajob}  {$leavework}</div>'),
+		'template' => $db->escape_string('<div class="joblist_staff">{$staff} - {$charajob}</div>'),
 		'sid' => '-1',
 		'version' => '',
 		'dateline' => TIME_NOW
@@ -723,9 +726,7 @@ function joblist_activate()
 	}
 
 	require MYBB_ROOT . "/inc/adminfunctions_templates.php";
-	find_replace_templatesets("header", "#" . preg_quote('<navigation>') . "#i", '{$joblist_global} <navigation>');
-	find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$nav_ipsearch}') . "#i", '{$nav_ipsearch}{$nav_joblist}');
-	find_replace_templatesets("member_profile", "#" . preg_quote('{$online_status}') . "#i", '{$online_status} <br />   {$memprofile[\'job\']}');
+
 
 }
 
@@ -744,9 +745,7 @@ function joblist_deactivate()
 	}
 
 	require MYBB_ROOT . "/inc/adminfunctions_templates.php";
-	find_replace_templatesets("header", "#" . preg_quote('{$joblist_global}') . "#i", '', 0);
-	find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$nav_joblist}') . "#i", '', 0);
-	find_replace_templatesets("member_profile", "#" . preg_quote('{$memprofile[\'job\']}') . "#i", '', 0);
+
 
 }
 
@@ -1296,6 +1295,7 @@ function joblist_misc()
 				$jid = 0;
 				$joblist_staff = "";
 				$joblist_otherinfos = "";
+				$joblist_options = "";
 
 
 				$jid = $row['jid'];
@@ -1487,9 +1487,12 @@ function joblist_global()
 		$get_openjobs = $db->fetch_field($db->simple_select("joblist", "COUNT(*) as accepted", "ok = 0"), "accepted");
 		if ($get_openjobs > 0) {
 			$count = "";
+			$verb = "";
 			if ($get_openjobs == 1) {
+				$verb = "ist";
 				$count = "Job";
 			} else {
+				$verb = "sind";
 				$count = "Jobs";
 			}
 
@@ -1746,4 +1749,24 @@ function joblist_alerts()
 		);
 	}
 
+}
+
+function joblist_user_activity($user_activity)
+{
+    global $user;
+    if (my_strpos($user['location'], "misc.php?action=joblist") !== false) {
+        $user_activity['activity'] = "joblist";
+    }
+
+    return $user_activity;
+}
+
+function joblist_location_activity($plugin_array)
+{
+    global $db, $mybb, $lang;
+    $lang->load('joblist');
+    if ($plugin_array['user_activity']['activity'] == "joblist") {
+        $plugin_array['location_name'] = $lang->joblist_wiw;
+    }
+    return $plugin_array;
 }
