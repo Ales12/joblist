@@ -726,7 +726,9 @@ function joblist_activate()
 	}
 
 	require MYBB_ROOT . "/inc/adminfunctions_templates.php";
-
+find_replace_templatesets("header", "#" . preg_quote('<navigation>') . "#i", '{$joblist_global} <navigation>');
+	find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$nav_ipsearch}') . "#i", '{$nav_ipsearch}{$nav_joblist}');
+	find_replace_templatesets("member_profile", "#" . preg_quote('{$online_status}') . "#i", '{$online_status} <br />   {$memprofile[\'job\']}');
 
 }
 
@@ -745,7 +747,9 @@ function joblist_deactivate()
 	}
 
 	require MYBB_ROOT . "/inc/adminfunctions_templates.php";
-
+		find_replace_templatesets("header", "#" . preg_quote('{$joblist_global}') . "#i", '', 0);
+	find_replace_templatesets("modcp_nav_users", "#" . preg_quote('{$nav_joblist}') . "#i", '', 0);
+	find_replace_templatesets("member_profile", "#" . preg_quote('{$memprofile[\'job\']}') . "#i", '', 0);
 
 }
 
