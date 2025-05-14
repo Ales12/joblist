@@ -65,11 +65,12 @@ function joblist_install()
           PRIMARY KEY (`jid`)
         ) ENGINE=MyISAM" . $db->build_create_table_collation());
 
-	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `jtitle` varchar(400) CHARACTER SET utf8 NOT NULL;");
-	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `jid` int(10) NOT NULL;");
-	// Nebenjob
-	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `sjtitle` varchar(400) CHARACTER SET utf8 NOT NULL;");
-	$db->query("ALTER TABLE `" . TABLE_PREFIX . "users` ADD `sjid` int(10) NOT NULL;");
+$db->write_query("ALTER TABLE ".TABLE_PREFIX."users ADD jtitle varchar(400) NOT NULL default '';");
+    $db->write_query("ALTER TABLE ".TABLE_PREFIX."users ADD jid int(10) NOT NULL default '0';");
+    // Nebenjob
+    $db->write_query("ALTER TABLE ". TABLE_PREFIX."users ADD sjtitle varchar(400) NOT NULL default '';");
+    $db->write_query("ALTER TABLE ". TABLE_PREFIX."users ADD sjid int(10) NOT NULL default '0';"); 
+
 
 	// Spalte bei Usertabelle hinzufügen
 	$db->add_column("usergroups", "canaddjob", "tinyint NOT NULL default '1'");
